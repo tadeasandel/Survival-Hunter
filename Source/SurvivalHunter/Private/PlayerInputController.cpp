@@ -51,10 +51,6 @@ void UPlayerInputController::HandleMouseXAxis(float Value)
 
 void UPlayerInputController::HandleKeyboardYAxis(float Value)
 {
-	if (Value != 0)
-	{
-		UE_LOG(LogTemp, Warning, TEXT("%f"), Value)
-	}
 	XKeyboardValue = Value;
 }
 
@@ -65,31 +61,30 @@ void UPlayerInputController::HandleKeyboardXAxis(float Value)
 
 void UPlayerInputController::OnMouseLeftUp()
 {
-	UE_LOG(LogTemp, Warning, TEXT("OnMouseLeftUp called"))
-	OnMouseLeftReleased.ExecuteIfBound();
+	OnMouseLeftReleased.Broadcast();
 }
 
 void UPlayerInputController::OnMouseLeftDown()
 {
-	OnMouseLeftPressed.ExecuteIfBound();
+	OnMouseLeftPressed.Broadcast();
 }
 
 void UPlayerInputController::OnMouseRightUp()
 {
-	OnMouseRightReleased.ExecuteIfBound();
+	OnMouseRightReleased.Broadcast();
 }
 
 void UPlayerInputController::OnMouseRightDown()
 {
-	OnMouseRightPressed.ExecuteIfBound();
+	OnMouseRightPressed.Broadcast();
 }
 
 void UPlayerInputController::OnJumpUp()
 {
-	OnJumpReleased.ExecuteIfBound();
+	OnJumpReleased.Broadcast();
 }
 
 void UPlayerInputController::OnJumpDown()
 {
-	OnJumpPressed.ExecuteIfBound();
+	OnJumpPressed.Broadcast();
 }

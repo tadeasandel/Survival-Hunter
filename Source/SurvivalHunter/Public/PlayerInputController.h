@@ -9,12 +9,12 @@
 
 class UInputComponent;
 
-DECLARE_DELEGATE(MouseLeftReleased);
-DECLARE_DELEGATE(MouseLeftPressed);
-DECLARE_DELEGATE(MouseRightReleased);
-DECLARE_DELEGATE(MouseRightPressed);
-DECLARE_DELEGATE(JumpPressed);
-DECLARE_DELEGATE(JumpReleased);
+DECLARE_MULTICAST_DELEGATE(FMouseLeftReleased);
+DECLARE_MULTICAST_DELEGATE(FMouseLeftPressed);
+DECLARE_MULTICAST_DELEGATE(FMouseRightReleased);
+DECLARE_MULTICAST_DELEGATE(FMouseRightPressed);
+DECLARE_MULTICAST_DELEGATE(FJumpPressed);
+DECLARE_MULTICAST_DELEGATE(FJumpReleased);
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class SURVIVALHUNTER_API UPlayerInputController : public UActorComponent
@@ -34,6 +34,7 @@ public:
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
+	UPROPERTY()
 	UInputComponent* InputComponent;
 
 	float XMouseValue;
@@ -45,14 +46,14 @@ public:
 	bool MouseleftHeld;
 	bool MouseRightHeld;
 
-	MouseLeftReleased OnMouseLeftReleased;
-	MouseLeftPressed OnMouseLeftPressed;
+	FMouseLeftReleased OnMouseLeftReleased;
+	FMouseLeftPressed OnMouseLeftPressed;
 
-	MouseRightReleased OnMouseRightReleased;
-	MouseRightPressed OnMouseRightPressed;
+	FMouseRightReleased OnMouseRightReleased;
+	FMouseRightPressed OnMouseRightPressed;
 
-	JumpPressed OnJumpPressed;
-	JumpReleased OnJumpReleased;
+	FJumpPressed OnJumpPressed;
+	FJumpReleased OnJumpReleased;
 
 private:
 	void HandleMouseXAxis(float Value);
