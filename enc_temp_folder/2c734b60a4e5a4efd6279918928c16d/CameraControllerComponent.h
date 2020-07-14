@@ -30,10 +30,8 @@ public:
 	UPROPERTY(EditAnywhere)
 		TSubclassOf<AActor> CameraActorToSpawn;
 
-	UPROPERTY(VisibleAnywhere)
 	AActor* CameraHolder;
 
-	UPROPERTY(VisibleAnywhere)
 	UStaticMeshComponent* StaticMesh;
 
 	void SpawnCamera();

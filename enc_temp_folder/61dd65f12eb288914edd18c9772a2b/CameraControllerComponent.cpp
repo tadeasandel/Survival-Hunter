@@ -23,14 +23,6 @@ void UCameraControllerComponent::BeginPlay()
 {
 	Super::BeginPlay();
 	StaticMesh = GetOwner()->FindComponentByClass<UStaticMeshComponent>();
-	if (StaticMesh)
-	{
-		UE_LOG(LogTemp, Warning, TEXT("WELL WE DID IT"));
-	}
-	else
-	{
-		UE_LOG(LogTemp, Warning, TEXT("UNREAL SUCKS"));			
-	}
 	SpawnCamera();
 }
 
