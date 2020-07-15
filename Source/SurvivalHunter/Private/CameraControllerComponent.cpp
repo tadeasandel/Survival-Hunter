@@ -45,7 +45,8 @@ void UCameraControllerComponent::TickComponent(float DeltaTime, ELevelTick TickT
 		if (StaticMesh)
 		{
 			FVector PlayerLocation = StaticMesh->GetComponentTransform().GetLocation() + FVector(0.0f, 0.5f, 0.0f);
-			CameraHolder->GetTransform().SetLocation(PlayerLocation);
+			CameraHolder->SetActorLocation(PlayerLocation);
+			UE_LOG(LogTemp, Warning, TEXT("%s vs location %s"), (*CameraHolder->GetTransform().GetLocation().ToString()),(*PlayerLocation.ToString()));
 		}
 	}
 }
