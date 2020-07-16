@@ -51,10 +51,7 @@ void UCameraControllerComponent::SpawnCamera()
 	FVector SpawnPosition = GetOwner()->GetTransform().GetLocation() + FVector(0.0f, 0.5f, 0.0f);
 	FActorSpawnParameters SpawnParams;
 	CameraHolder = GetWorld()->SpawnActor(CameraActorToSpawn, &SpawnPosition, &SpawnRotation, SpawnParams);
-	TArray<AActor*> Children;
-	CameraHolder->GetAllChildActors(Children);
-
-	CameraSubObject = Children[0];
+	TArray<AActor*> Children = CameraHolder->GetAllChildActors();
 }
 
 void UCameraControllerComponent::TurnCamera()
@@ -71,29 +68,29 @@ void UCameraControllerComponent::TurnCamera()
 
 void UCameraControllerComponent::ScrollCamera()
 {
-	//CameraDistance += InputController->MouseScrollValue;
+	CameraDistance += InputController->MouseScrollValue;
 
-	//FHitResult HitResult;
+	FHitResult HitResult;
 
-	//FVector PlayerPosition = StaticMesh->GetComponentLocation();
-	//FVector CameraPosition = CameraSubObject->GetTransform().GetLocation();
+	FVector PlayerPosition = StaticMesh->GetComponentLocation();
+	FVector CameraPosition = CameraHolder->GetTransform().GetLocation();
 
-	//FVector CameraEndPosition = (CameraPosition - PlayerPosition);
-	//CameraEndPosition.Normalize();
-	//CameraEndPosition *= MaxCameraDistance;
+	FVector CameraEndPosition = (CameraPosition - PlayerPosition);
+	CameraEndPosition.Normalize();
+	CameraEndPosition *= MaxCameraDistance;
 
-	//FCollisionQueryParams TraceParams(FName(TEXT("")), false, GetOwner());
+	FCollisionQueryParams TraceParams(FName(TEXT("")), false, GetOwner());
 
-	//GetWorld()->LineTraceSingleByObjectType(HitResult, PlayerPosition, CameraEndPosition, FCollisionObjectQueryParams(ECollisionChannel::ECC_PhysicsBody), TraceParams);
+	GetWorld()->LineTraceSingleByObjectType(HitResult, PlayerPosition, CameraEndPosition, FCollisionObjectQueryParams(ECollisionChannel::ECC_PhysicsBody), TraceParams);
 
-	//if (HitResult.GetActor())
-	//{
-	//	CameraDistance = HitResult.Distance - 5.0f;
-	//}
+	if (HitResult.GetActor())
+	{
+		CameraDistance = HitResult.Distance - 5.0f;
+	}
 
-	//CameraDistance = FMath::Clamp(CameraDistance, 0.0f, MaxCameraDistance);
+	CameraDistance = FMath::Clamp(CameraDistance, 0.0f, MaxCameraDistance);
 
-	//FVector CurrentCameraPosition = CameraSubObject->GetActorLocation();
+	FVector CurrentCameraPosition = CameraHolder->GetActorLocation();
 
-	//CameraSubObject->SetActorLocation(FVector(-CameraDistance, CurrentCameraPosition.Y, CurrentCameraPosition.Z));
+	CameraHolder->SetActorLocation(FVector(-CameraDistance, CurrentCameraPosition.Y, CurrentCameraPosition.Z));
 }

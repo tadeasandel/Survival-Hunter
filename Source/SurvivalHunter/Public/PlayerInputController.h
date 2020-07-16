@@ -40,6 +40,8 @@ public:
 	float XMouseValue;
 	float YMouseValue;
 
+	float MouseScrollValue;
+
 	float XKeyboardValue;
 	float YKeyboardValue;
 
@@ -60,6 +62,7 @@ private:
 	void HandleMouseYAxis(float Value);
 	void HandleKeyboardXAxis(float Value);
 	void HandleKeyboardYAxis(float Value);
+	void HandleMouseScroll(float Value);
 
 	void OnMouseLeftUp();
 	void OnMouseLeftDown();

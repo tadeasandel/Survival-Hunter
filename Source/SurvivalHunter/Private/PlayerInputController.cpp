@@ -22,8 +22,9 @@ void UPlayerInputController::BeginPlay()
 	{
 		InputComponent->BindAxis("MoveForward", this, &UPlayerInputController::HandleKeyboardYAxis);
 		InputComponent->BindAxis("MoveRight", this, &UPlayerInputController::HandleKeyboardXAxis);
-		InputComponent->BindAxis("MouseForward", this, &UPlayerInputController::HandleMouseXAxis);
-		InputComponent->BindAxis("MouseRight", this, &UPlayerInputController::HandleMouseYAxis);
+		InputComponent->BindAxis("MouseRight", this, &UPlayerInputController::HandleMouseXAxis);
+		InputComponent->BindAxis("MouseForward", this, &UPlayerInputController::HandleMouseYAxis);
+		InputComponent->BindAxis("MouseScroll", this, &UPlayerInputController::HandleMouseScroll);
 
 		InputComponent->BindAction("M1", IE_Pressed, this, &UPlayerInputController::OnMouseLeftDown);
 		InputComponent->BindAction("M1", IE_Released, this, &UPlayerInputController::OnMouseLeftUp);
@@ -51,12 +52,17 @@ void UPlayerInputController::HandleMouseXAxis(float Value)
 
 void UPlayerInputController::HandleKeyboardYAxis(float Value)
 {
-	XKeyboardValue = Value;
+	YKeyboardValue = Value;
 }
 
 void UPlayerInputController::HandleKeyboardXAxis(float Value)
 {
-	YKeyboardValue = Value;
+	XKeyboardValue = Value;
+}
+
+void UPlayerInputController::HandleMouseScroll(float Value)
+{
+	MouseScrollValue = Value;
 }
 
 void UPlayerInputController::OnMouseLeftUp()

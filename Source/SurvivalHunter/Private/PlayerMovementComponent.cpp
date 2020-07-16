@@ -38,7 +38,7 @@ void UPlayerMovementComponent::TickComponent(float DeltaTime, ELevelTick TickTyp
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 	if (InputController)
 	{
-		StaticMesh->AddForce(FVector(InputController->XKeyboardValue, InputController->YKeyboardValue, StaticMesh->ComponentVelocity.Z) * DeltaTime * MovementSpeed);
+		StaticMesh->AddForce(FVector(InputController->YKeyboardValue, InputController->XKeyboardValue, StaticMesh->ComponentVelocity.Z) * DeltaTime * MovementSpeed);
 	}
 }
 

@@ -40,7 +40,7 @@ public:
 	UPROPERTY(VisibleAnywhere)
 	UStaticMeshComponent* StaticMesh;
 
-	AActor* CameraSubObject;
+	UChildActorComponent* CameraSubObject;
 
 	UPROPERTY(EditAnywhere)
 		float MouseSensitivity;
