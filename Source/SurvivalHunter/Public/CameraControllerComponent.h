@@ -9,6 +9,7 @@
 class UCameraComponent;
 class AActor;
 class UStaticMeshComponent;
+class UPlayerInputController;
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class SURVIVALHUNTER_API UCameraControllerComponent : public UActorComponent
@@ -26,6 +27,8 @@ protected:
 public:	
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
+	UPROPERTY(Transient)
+		UPlayerInputController* InputController;
 
 	UPROPERTY(EditAnywhere)
 		TSubclassOf<AActor> CameraActorToSpawn;
@@ -36,5 +39,12 @@ public:
 	UPROPERTY(VisibleAnywhere)
 	UStaticMeshComponent* StaticMesh;
 
+	UPROPERTY(EditAnywhere)
+		float MouseSensitivity;
+
+	float RotationY;
+	float RotationX;
+
 	void SpawnCamera();
+	void TurnCamera();
 };

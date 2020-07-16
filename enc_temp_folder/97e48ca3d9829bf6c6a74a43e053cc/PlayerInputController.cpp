@@ -22,8 +22,8 @@ void UPlayerInputController::BeginPlay()
 	{
 		InputComponent->BindAxis("MoveForward", this, &UPlayerInputController::HandleKeyboardYAxis);
 		InputComponent->BindAxis("MoveRight", this, &UPlayerInputController::HandleKeyboardXAxis);
-		InputComponent->BindAxis("MouseForward", this, &UPlayerInputController::HandleMouseXAxis);
-		InputComponent->BindAxis("MouseRight", this, &UPlayerInputController::HandleMouseYAxis);
+		InputComponent->BindAxis("MouseForward", this, &UPlayerInputController::HandleMouseYAxis);
+		InputComponent->BindAxis("MourseRight", this, &UPlayerInputController::HandleMouseXAxis);
 
 		InputComponent->BindAction("M1", IE_Pressed, this, &UPlayerInputController::OnMouseLeftDown);
 		InputComponent->BindAction("M1", IE_Released, this, &UPlayerInputController::OnMouseLeftUp);
@@ -41,12 +41,12 @@ void UPlayerInputController::TickComponent(float DeltaTime, ELevelTick TickType,
 
 void UPlayerInputController::HandleMouseYAxis(float Value)
 {
-	YMouseValue = Value;
+	XMouseValue = Value;
 }
 
 void UPlayerInputController::HandleMouseXAxis(float Value)
 {
-	XMouseValue = Value;
+	YMouseValue = Value;
 }
 
 void UPlayerInputController::HandleKeyboardYAxis(float Value)

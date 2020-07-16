@@ -61,13 +61,9 @@ void UCameraControllerComponent::TurnCamera()
 		RotationX += InputController->XMouseValue * MouseSensitivity;
 		RotationY += InputController->YMouseValue * MouseSensitivity;
 
-
-
-		RotationY = FMath::Clamp(RotationY,-90.0f,90.0f);
-		FRotator NewCameraRotation = FRotator(RotationY, RotationX, 0);
+		FRotator NewCameraRotation = FRotator(RotationX, 0, RotationY);
 		CameraHolder->SetActorRotation(NewCameraRotation);
-		UE_LOG(LogTemp, Warning, TEXT("Mouse Y %f"), InputController->YMouseValue);
-		UE_LOG(LogTemp, Warning, TEXT("Mouse X %f"), InputController->XMouseValue);
+		UE_LOG(LogTemp, Warning, TEXT("Setting new rotation to %s"), (*NewCameraRotation.ToString()));
 	}
 }
 
