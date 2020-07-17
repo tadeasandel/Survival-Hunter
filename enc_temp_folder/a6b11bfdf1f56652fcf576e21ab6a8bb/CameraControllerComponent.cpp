@@ -51,7 +51,11 @@ void UCameraControllerComponent::SpawnCamera()
 	FVector SpawnPosition = GetOwner()->GetTransform().GetLocation() + FVector(0.0f, 0.5f, 0.0f);
 	FActorSpawnParameters SpawnParams;
 	CameraHolder = GetWorld()->SpawnActor(CameraActorToSpawn, &SpawnPosition, &SpawnRotation, SpawnParams);
-	TArray<AActor*> Children = CameraHolder->GetAllChildActors();
+	TArray<AActor*> Children;
+	CameraHolder->GetAllChildActors(Children);
+
+	CameraSubObject = Children[0];
+	UE_LOG(LogTemp, Warning, TEXT("%s"), (*CameraSubObject->GetName()));
 }
 
 void UCameraControllerComponent::TurnCamera()
@@ -73,7 +77,7 @@ void UCameraControllerComponent::ScrollCamera()
 	FHitResult HitResult;
 
 	FVector PlayerPosition = StaticMesh->GetComponentLocation();
-	FVector CameraPosition = CameraHolder->GetTransform().GetLocation();
+	FVector CameraPosition = CameraSubObject->GetTransform().GetLocation();
 
 	FVector CameraEndPosition = (CameraPosition - PlayerPosition);
 	CameraEndPosition.Normalize();
@@ -86,11 +90,15 @@ void UCameraControllerComponent::ScrollCamera()
 	if (HitResult.GetActor())
 	{
 		CameraDistance = HitResult.Distance - 5.0f;
+		UE_LOG(LogTemp,Warning, TEXT("Hitting actor named %s"), (*HitResult.GetActor()->GetName()))
 	}
 
 	CameraDistance = FMath::Clamp(CameraDistance, 0.0f, MaxCameraDistance);
 
-	FVector CurrentCameraPosition = CameraHolder->GetActorLocation();
+	UE_LOG(LogTemp, Error, TEXT("Camera distance is %f"), CameraDistance);
 
-	CameraHolder->SetActorLocation(FVector(-CameraDistance, CurrentCameraPosition.Y, CurrentCameraPosition.Z));
+	FVector CurrentCameraPosition = CameraSubObject->GetActorLocation();
+	CurrentCameraPosition.X = -CameraDistance;
+
+	CameraSubObject->GetTransform().SetLocation(CurrentCameraPosition);
 }

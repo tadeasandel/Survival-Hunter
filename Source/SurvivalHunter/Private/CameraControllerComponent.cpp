@@ -55,6 +55,7 @@ void UCameraControllerComponent::SpawnCamera()
 	CameraHolder->GetAllChildActors(Children);
 
 	CameraSubObject = Children[0];
+	UE_LOG(LogTemp, Warning, TEXT("%s"), (*CameraSubObject->GetName()));
 }
 
 void UCameraControllerComponent::TurnCamera()
@@ -71,29 +72,33 @@ void UCameraControllerComponent::TurnCamera()
 
 void UCameraControllerComponent::ScrollCamera()
 {
-	//CameraDistance += InputController->MouseScrollValue;
+	CameraDistance += InputController->MouseScrollValue;
 
-	//FHitResult HitResult;
+	FHitResult HitResult;
 
-	//FVector PlayerPosition = StaticMesh->GetComponentLocation();
-	//FVector CameraPosition = CameraSubObject->GetTransform().GetLocation();
+	FVector PlayerPosition = StaticMesh->GetComponentLocation();
+	FVector CameraPosition = CameraSubObject->GetTransform().GetLocation();
 
-	//FVector CameraEndPosition = (CameraPosition - PlayerPosition);
-	//CameraEndPosition.Normalize();
-	//CameraEndPosition *= MaxCameraDistance;
+	FVector CameraEndPosition = (CameraPosition - PlayerPosition);
+	CameraEndPosition.Normalize();
+	CameraEndPosition *= MaxCameraDistance;
 
-	//FCollisionQueryParams TraceParams(FName(TEXT("")), false, GetOwner());
+	FCollisionQueryParams TraceParams(FName(TEXT("")), false, GetOwner());
 
-	//GetWorld()->LineTraceSingleByObjectType(HitResult, PlayerPosition, CameraEndPosition, FCollisionObjectQueryParams(ECollisionChannel::ECC_PhysicsBody), TraceParams);
+	GetWorld()->LineTraceSingleByObjectType(HitResult, PlayerPosition, CameraEndPosition, FCollisionObjectQueryParams(ECollisionChannel::ECC_PhysicsBody), TraceParams);
 
-	//if (HitResult.GetActor())
-	//{
-	//	CameraDistance = HitResult.Distance - 5.0f;
-	//}
+	if (HitResult.GetActor())
+	{
+		CameraDistance = HitResult.Distance - 5.0f;
+		UE_LOG(LogTemp,Warning, TEXT("Hitting actor named %s"), (*HitResult.GetActor()->GetName()))
+	}
 
-	//CameraDistance = FMath::Clamp(CameraDistance, 0.0f, MaxCameraDistance);
+	CameraDistance = FMath::Clamp(CameraDistance, 0.0f, MaxCameraDistance);
 
-	//FVector CurrentCameraPosition = CameraSubObject->GetActorLocation();
+	UE_LOG(LogTemp, Error, TEXT("Camera distance is %f"), CameraDistance);
 
-	//CameraSubObject->SetActorLocation(FVector(-CameraDistance, CurrentCameraPosition.Y, CurrentCameraPosition.Z));
+	FVector CurrentCameraPosition = CameraSubObject->GetActorLocation();
+	CurrentCameraPosition.X = -CameraDistance;
+
+	CameraSubObject->GetTransform().SetLocation(CurrentCameraPosition);
 }

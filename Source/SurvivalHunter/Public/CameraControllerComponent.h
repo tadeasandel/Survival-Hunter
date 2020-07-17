@@ -40,6 +40,7 @@ public:
 	UPROPERTY(VisibleAnywhere)
 	UStaticMeshComponent* StaticMesh;
 
+	UPROPERTY(VisibleAnywhere)
 	AActor* CameraSubObject;
 
 	UPROPERTY(EditAnywhere)
