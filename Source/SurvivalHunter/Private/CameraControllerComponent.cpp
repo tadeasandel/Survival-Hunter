@@ -95,10 +95,11 @@ void UCameraControllerComponent::ScrollCamera()
 
 	CameraDistance = FMath::Clamp(CameraDistance, 0.0f, MaxCameraDistance);
 
-	UE_LOG(LogTemp, Error, TEXT("Camera distance is %f"), CameraDistance);
 
 	FVector CurrentCameraPosition = CameraSubObject->GetActorLocation();
 	CurrentCameraPosition.X = -CameraDistance;
 
-	CameraSubObject->GetTransform().SetLocation(CurrentCameraPosition);
+	CameraSubObject->SetActorRelativeLocation(CurrentCameraPosition);
+
+	UE_LOG(LogTemp, Error, TEXT("Camera distance is %f and Actor Location is %s"), CameraDistance, (*CameraSubObject->GetActorLocation().ToString()));
 }

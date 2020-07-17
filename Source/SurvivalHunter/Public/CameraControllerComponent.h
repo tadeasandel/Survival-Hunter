@@ -44,10 +44,10 @@ public:
 	AActor* CameraSubObject;
 
 	UPROPERTY(EditAnywhere)
-		float MouseSensitivity;
+		float MouseSensitivity = 10.0f;
 
 	UPROPERTY(EditAnywhere)
-		float MaxCameraDistance;
+		float MaxCameraDistance = 400.0f;
 
 	float RotationY;
 	float RotationX;
